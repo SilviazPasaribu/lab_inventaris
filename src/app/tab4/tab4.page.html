@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar style="--background: #a0522d; color: white;">
+    <ion-title>Input Riwayat Inventaris</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [style.background]="'#fffaf0'">
+
+  <ng-container *ngIf="isAdmin; else notAdmin">
+    <ion-card style="--background: #fdf5e6; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+      <ion-card-header>
+        <ion-card-title class="ion-text-center" style="color: #8b4513;">Form Riwayat Mutasi</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form (ngSubmit)="submitForm()">
+
+          <!-- Pilih Kode Barang -->
+          <ion-item lines="inset">
+            <ion-icon name="pricetag-outline" slot="start" style="color: #cd853f;"></ion-icon>
+            <ion-select placeholder="Pilih Kode Barang" [(ngModel)]="form.kode_barang" name="kode_barang" (ionChange)="onKodeBarangChange()" required>
+              <ion-select-option *ngFor="let barang of daftarBarang" [value]="barang.kode_barang">
+                {{ barang.kode_barang }} - {{ barang.nama_barang }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Nama Barang (readonly) -->
+          <ion-item lines="inset">
+            <ion-icon name="cube-outline" slot="start" style="color: #cd853f;"></ion-icon>
+            <ion-input placeholder="Nama Barang" [(ngModel)]="form.nama_barang" name="nama_barang" readonly></ion-input>
+          </ion-item>
+
+          <!-- Lokasi Awal & Akhir -->
+          <ion-item lines="inset">
+            <ion-icon name="navigate-outline" slot="start" style="color: #cd853f;"></ion-icon>
+            <ion-input placeholder="Lokasi Awal" [(ngModel)]="form.lokasi_awal" name="lokasi_awal" readonly></ion-input>
+          </ion-item>
+          <ion-item lines="inset">
+            <ion-icon name="pin-outline" slot="start" style="color: #cd853f;"></ion-icon>
+            <ion-input placeholder="Lokasi Akhir" [(ngModel)]="form.lokasi_akhir" name="lokasi_akhir"></ion-input>
+          </ion-item>
+
+          <!-- Kondisi Awal & Akhir -->
+          <ion-item lines="inset">
+            <ion-icon name="alert-circle-outline" slot="start" style="color: #cd853f;"></ion-icon>
+            <ion-input placeholder="Kondisi Awal" [(ngModel)]="form.kondisi_awal" name="kondisi_awal" readonly></ion-input>
+          </ion-item>
+          <ion-item lines="inset">
+            <ion-icon name="checkmark-done-outline" slot="start" style="color: #cd853f;"></ion-icon>
+            <ion-input placeholder="Kondisi Akhir" [(ngModel)]="form.kondisi_akhir" name="kondisi_akhir"></ion-input>
+          </ion-item>
+
+          <!-- Jumlah -->
+          <ion-item lines="inset">
+            <ion-icon name="layers-outline" slot="start" style="color: #cd853f;"></ion-icon>
+            <ion-input placeholder="Jumlah Barang" type="number" [(ngModel)]="form.jumlah" name="jumlah" required></ion-input>
+          </ion-item>
+
+          <!-- Aktivitas -->
+          <ion-item lines="inset">
+            <ion-icon name="sync-outline" slot="start" style="color: #cd853f;"></ion-icon>
+            <ion-select placeholder="Jenis Aktivitas" [(ngModel)]="form.aktivitas" name="aktivitas" required>
+              <ion-select-option value="Tambah">Tambah</ion-select-option>
+              <ion-select-option value="Hapus">Hapus</ion-select-option>
+              <ion-select-option value="Pindah Lokasi">Pindah Lokasi</ion-select-option>
+              <ion-select-option value="Perubahan Kondisi">Perubahan Kondisi</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Keterangan -->
+          <ion-item lines="inset">
+            <ion-icon name="document-text-outline" slot="start" style="color: #cd853f;"></ion-icon>
+            <ion-textarea placeholder="Keterangan tambahan..." [(ngModel)]="form.keterangan" name="keterangan"></ion-textarea>
+          </ion-item>
+
+          <!-- Tombol Simpan -->
+          <ion-button expand="block" type="submit" style="--background: #d2691e; --color: white;" class="ion-margin-top">
+            <ion-icon name="save-outline" slot="start"></ion-icon>
+            Simpan Riwayat
+          </ion-button>
+
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <!-- Jika bukan admin -->
+  <ng-template #notAdmin>
+    <ion-card color="light">
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Akses Ditolak</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="ion-text-center">
+        <p>Hanya admin yang dapat mengakses dan menginput riwayat barang.</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+
+</ion-content>

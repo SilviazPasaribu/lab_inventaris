@@ -1,0 +1,15 @@
+.inventaris-card {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-bottom: 16px;
+  border-radius: 12px;
+}
+
+.zoomable-image {
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+  border-radius: 12px 12px 0 0;
+}
+
+.zoomable-image:hover {
+  transform: scale(1.02);
+}

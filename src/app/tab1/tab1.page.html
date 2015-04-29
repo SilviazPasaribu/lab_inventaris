@@ -1,17 +1,58 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="warning"> <!-- Warna jingga/coklat -->
+    <ion-title>Data Inventaris</ion-title>
+
+    <!-- Tombol Logout (warna merah + teks + ikon) -->
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Logout
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding" [style.background]="'#fffaf0'">
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Cari nama barang..."></ion-searchbar>
+      </ion-col>
+      <ion-col size="12" size-md="6" class="ion-text-end">
+        <ion-button (click)="exportToExcel()" color="success" class="ion-margin-end">
+          <ion-icon name="document-outline" slot="start"></ion-icon>
+          Export Excel
+        </ion-button>
+        <ion-button (click)="exportToWord()" color="secondary">
+          <ion-icon name="document-text-outline" slot="start"></ion-icon>
+          Export Word
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card *ngFor="let item of filteredInventaris()" class="inventaris-card" style="--background: #fdf5e6;">
+    <ion-img [src]="item.gambar_url" (click)="openImage(item.gambar_url)" class="zoomable-image"></ion-img>
+    <ion-card-header>
+      <ion-card-title style="color: #8B4513;">{{ item.nama_barang }}</ion-card-title>
+      <ion-card-subtitle>Kode: {{ item.kode_barang }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Jumlah:</strong> {{ item.jumlah }}</p>
+      <p><strong>Kondisi:</strong> {{ item.kondisi }}</p>
+      <p><strong>Lokasi:</strong> {{ item.lokasi }}</p>
+      <p><strong>Tanggal Masuk:</strong> {{ item.tanggal_masuk }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Modal Zoom Gambar -->
+  <ion-modal [isOpen]="showModal" (didDismiss)="closeImage()">
+    <ng-template>
+      <ion-content class="ion-padding" (click)="closeImage()">
+        <img [src]="selectedImage" style="width: 100%; height: auto;" />
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>

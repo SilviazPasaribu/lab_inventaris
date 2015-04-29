@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="warning"> <!-- warna jingga -->
+    <ion-title class="ion-text-center">Login Admin</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [style.background]="'#fbeee0'"> <!-- latar coklat muda -->
+
+  <ion-card style="--background: #fff7ed; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 16px;">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center" style="color: #a0522d;">Selamat Datang 👋</ion-card-title>
+      <ion-card-subtitle class="ion-text-center" style="color: #d2691e;">Silakan login untuk melanjutkan</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item lines="full">
+        <ion-icon name="mail-outline" slot="start" style="color: #8b4513;"></ion-icon>
+        <ion-label position="floating" style="color: #a0522d;">Email</ion-label>
+        <ion-input [(ngModel)]="email" type="email" placeholder="admin@example.com" style="color: #5c4033;"></ion-input>
+      </ion-item>
+
+      <ion-item lines="full" class="ion-margin-top">
+        <ion-icon name="lock-closed-outline" slot="start" style="color: #8b4513;"></ion-icon>
+        <ion-label position="floating" style="color: #a0522d;">Password</ion-label>
+        <ion-input [(ngModel)]="password" type="password" placeholder="********" style="color: #5c4033;"></ion-input>
+      </ion-item>
+
+      <ion-button fill="clear" expand="block" routerLink="/register" style="color: #cc5500;">
+        Belum punya akun? Daftar
+      </ion-button>
+
+      <ion-button expand="block" style="--background: #ff7f50; --color: white;" class="ion-margin-top" (click)="login()">
+        <ion-icon name="log-in-outline" slot="start"></ion-icon>
+        Login
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

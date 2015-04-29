@@ -1,17 +1,63 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+<ion-header>
+  <ion-toolbar style="--background: #a0522d; color: white;"> <!-- Coklat tua -->
+    <ion-title>Riwayat Mutasi Inventaris</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding" [style.background]="'#fdf5e6'">
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-list *ngIf="riwayat.length > 0; else kosong">
+    <ion-card *ngFor="let item of riwayat" style="margin-bottom: 16px; border-radius: 12px; --background: #fffaf0;">
+      <ion-card-header>
+        <ion-card-title style="color: #8b4513;">{{ item.nama_barang }}</ion-card-title>
+        <ion-card-subtitle>Kode: {{ item.kode_barang }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-icon name="sync-outline" slot="start" style="color: #cd853f;"></ion-icon>
+          <ion-label><strong>Aktivitas:</strong> {{ item.aktivitas }}</ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon name="cube-outline" slot="start" style="color: #cd853f;"></ion-icon>
+          <ion-label><strong>Jumlah:</strong> {{ item.jumlah }}</ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon name="alert-circle-outline" slot="start" style="color: #cd853f;"></ion-icon>
+          <ion-label>
+            <strong>Kondisi:</strong> {{ item.kondisi_awal }} → {{ item.kondisi_akhir }}
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon name="location-outline" slot="start" style="color: #cd853f;"></ion-icon>
+          <ion-label>
+            <strong>Lokasi:</strong> {{ item.lokasi_awal }} → {{ item.lokasi_akhir }}
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon name="document-text-outline" slot="start" style="color: #cd853f;"></ion-icon>
+          <ion-label><strong>Keterangan:</strong> {{ item.keterangan }}</ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon name="calendar-outline" slot="start" style="color: #cd853f;"></ion-icon>
+          <ion-label>
+            <strong>Tanggal:</strong> {{ item.tanggal | date:'dd MMM yyyy HH:mm' }}
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <!-- Jika tidak ada data -->
+  <ng-template #kosong>
+    <ion-text color="medium">
+      <p class="ion-text-center" style="margin-top: 40px;">Belum ada riwayat mutasi inventaris.</p>
+    </ion-text>
+  </ng-template>
+
 </ion-content>
