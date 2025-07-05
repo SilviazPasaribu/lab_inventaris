@@ -1,0 +1,7 @@
+{
+  "name": "inventaris_lab_unika",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
